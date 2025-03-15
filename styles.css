@@ -169,10 +169,11 @@ body {
 }
 
 /* Estilos para los controles de cantidad */
-.cantidad-control {
+li.producto-item {
     display: flex;
-    align-items: center;
-    gap: 5px;
+    flex-direction: flex start;
+    text-align: -webkit-match-parent;
+    unicode-bidi: isolate;
 }
 
 .cantidad-control button {
@@ -232,14 +233,6 @@ body {
     gap: 10px; /* Espacio entre los elementos */
 }
 
-.categoria-lista li {
-    background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
-    padding: 10px;
-    border-radius: 5px;
-    flex: 1 1 calc(50% - 10px); /* Dos columnas en móviles */
-    box-sizing: border-box; /* Incluir el padding en el ancho */
-    text-align: center; /* Centrar el texto */
-}
 
 /* Estilos para pantallas más grandes (tablets y escritorio) */
 @media (min-width: 768px) {
