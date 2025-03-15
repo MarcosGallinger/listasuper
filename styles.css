@@ -1,0 +1,269 @@
+body {
+    background-image: url('/img/gondola.png'); /* Ruta de la imagen */
+    background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    color: white; /* Cambia el color del texto para que sea legible */
+    font-family: 'Playfair Display', serif; /* Nueva fuente */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+.contenedor {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    padding: 40px 0px;
+    border-radius: 10px;
+    color: white; /* Color del texto */
+    width: 90%;
+    height: 80%;
+    max-width: 600px;
+    max-height: auto;
+}
+
+div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10%;
+}
+
+.btnAgregar, .btnLimpiar, .btnLista {
+    border: none; 
+    padding: 20px 28px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+    display: inline-block;
+    margin: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    font-family: 'Playfair Display', serif; /* Nueva fuente */
+    font-weight: 700; /* Negrita */
+}
+
+
+
+.btnLista {
+    background-color: rgb(14, 250, 250);
+    color: black;
+}
+
+.btnLista:hover {
+    background-color: rgb(8, 180, 230);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btnAgregar {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+}
+
+.btnAgregar:hover {
+    background-color: #45a049;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btnLimpiar {
+    background-color: #f44336; /* Rojo */
+    color: white;
+}
+
+.btnLimpiar:hover {
+    background-color: #e53935;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.bloque {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    font-family: "Rock Salt", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.bloque ul {
+    width: 40%; /* Ancho de cada <ul> para que quepan dos por fila */
+    padding: 5px;
+    border: 2px solid #0a0a0a; /* Borde para visualizar mejor */
+    list-style-type: none; /* Quita los puntos de la lista */
+    text-align: center;
+    border-radius: 5px;
+    color: #ffffff;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.cantidad {
+    display: flex;
+    cursor: pointer;
+    color: #ff0202;
+    padding: 0px 80px;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.icono {
+    width: 24px; /* Ajusta el tamaño de los iconos */
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+/* Estilos para los modales */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semi-transparente */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contenido {
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    color: white;
+    border: 2px solid #4CAF50; /* Borde verde */
+    font-family: 'Playfair Display', serif; /* Nueva fuente */
+}
+
+.cerrar {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+}
+
+.cerrar:hover {
+    color: #f44336; /* Rojo al pasar el mouse */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form input, form select, form button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: "Rock Salt", cursive;
+}
+
+form button {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+#listaProductos, #contenidoListaCompleta {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+#listaProductos li, #contenidoListaCompleta li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.listacompleta {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+div.modal-contenido{
+    display: flex;
+    flex-direction: column;
+
+}
+div.listacompleta {
+    display: flex;
+    flex-direction: column;
+}
+/* Estilos para el modal de la lista completa */
+#contenidoListaCompleta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.categoria-lista {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.categoria-lista h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #4CAF50; /* Verde */
+}
+
+.categoria-lista ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.categoria-lista li {
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Estilos para la calculadora */
+.calculadora {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    text-align: center;
+    font-family: 'Playfair Display', serif; /* Nueva fuente */
+}
+
+.calculadora h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #4CAF50; /* Verde */
+}
+
+.calculadora p {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin: 10px 0;
+}
+
+h2, h3 {
+    font-family: 'Playfair Display', serif; /* Nueva fuente */
+    font-weight: 700; /* Negrita */
+}

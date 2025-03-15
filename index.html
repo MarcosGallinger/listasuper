@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Supermercado</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="contenedor">
+        <div>
+            <button id="btnAgregar" class="btnAgregar" onclick="abrirModalAgregar()">Agregar Producto</button>
+            <button id="btnLimpiar" class="btnLimpiar" onclick="limpiarLista()">Limpiar Lista</button>
+            <button id="btnLista" class="btnLista" onclick="mostrarListaCompleta()">Mostrar Lista</button>
+        </div>
+         <!-- Sección de la calculadora -->
+<div class="calculadora">
+    <h3>Total Acumulado</h3>
+    <p id="totalAcumulado">$0.00</p>
+</div>
+
+        <!-- Bloques de categorías -->
+        <div class="bloque">
+            <ul id="Frutas" class="listaFyV" style="list-style-type: none;" value="FrutasyVerduras">
+                <img src="img/verduras.png" alt="Verduras" class="icono"> Frutas y Verduras
+            </ul>
+            <ul id="Bebidas" class="listaBebidas" style="list-style-type: none;" value="Bebidas">
+                <img src="img/refresco.png" alt="Bebidas" class="icono"> Bebidas
+            </ul>
+        </div>
+        <div class="bloque">
+            <span class="cantidad" id="cantidadFrutasyVerduras" onclick="mostrarProductos('FrutasyVerduras')">0</span>
+            <span class="cantidad" id="cantidadBebidas" onclick="mostrarProductos('Bebidas')">0</span>
+        </div>
+        
+        <div class="bloque">
+            <ul id="Congelados" class="listaCongelados" style="list-style-type: none;" value="Congelados">
+                <img src="img/alimentos-congelados.png" alt="Congelados" class="icono"> Congelados
+            </ul>
+            <ul id="Carniceria" class="listaCarniceria" style="list-style-type: none;" value="Carniceria">
+                <img src="img/carniceria.png" alt="Carniceria" class="icono"> Carniceria
+            </ul>
+        </div>
+        <div class="bloque">
+            <span class="cantidad" id="cantidadCongelados" onclick="mostrarProductos('Congelados')">0</span>
+            <span class="cantidad" id="cantidadCarniceria" onclick="mostrarProductos('Carniceria')">0</span>
+        </div>
+        
+        <div class="bloque">
+            <ul id="Perfumeria" class="listaPerfumeria" style="list-style-type: none;" value="Perfumeria">
+                <img src="img/botella.png" alt="Perfumeria" class="icono"> Perfumeria
+            </ul>
+            <ul id="Limpieza" class="listaLimpieza" style="list-style-type: none;" value="Limpieza">
+                <img src="img/limpieza.png" alt="Limpieza" class="icono"> Limpieza
+            </ul> 
+        </div>
+        <div class="bloque">
+            <span class="cantidad" id="cantidadPerfumeria" onclick="mostrarProductos('Perfumeria')">0</span>
+            <span class="cantidad" id="cantidadLimpieza" onclick="mostrarProductos('Limpieza')">0</span>
+        </div>
+        
+        <div class="bloque">
+            <ul id="Almacen" class="listaAlmacen" style="list-style-type: none;" value="Almacen">
+                <img src="img/almacen.png" alt="Almacen" class="icono"> Almacen
+            </ul>
+            <ul id="Mascotas" class="listaMascotas" style="list-style-type: none;" value="Mascotas">
+                <img src="img/alimentos-para-mascotas.png" alt="Mascotas" class="icono"> Mascotas
+            </ul>
+        </div>
+        <div class="bloque">
+            <span class="cantidad" id="cantidadAlmacen" onclick="mostrarProductos('Almacen')">0</span>
+            <span class="cantidad" id="cantidadMascotas" onclick="mostrarProductos('Mascotas')">0</span>
+        </div>
+
+    <!-- Modal para agregar productos -->
+<div id="modalAgregar" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar" onclick="cerrarModalAgregar()">&times;</span>
+        <h2>Agregar Producto</h2>
+        <form id="formularioProducto">
+            <label for="nombreProducto">Nombre del Producto:</label>
+            <input type="text" id="nombreProducto" name="nombreProducto" required>
+
+            <label for="cantidadProducto">Cantidad:</label>
+            <input type="number" id="cantidadProducto" name="cantidadProducto" min="1" required>
+
+            <label for="precioProducto">Precio:</label>
+            <input type="number" id="precioProducto" name="precioProducto" step="0.01" min="0" required>
+
+            <label for="categoriaProducto">Categoría:</label>
+            <select id="categoriaProducto" name="categoriaProducto" required>
+                <option value="FrutasyVerduras">Frutas y Verduras</option>
+                <option value="Bebidas">Bebidas</option>
+                <option value="Congelados">Congelados</option>
+                <option value="Carniceria">Carniceria</option>
+                <option value="Perfumeria">Perfumeria</option>
+                <option value="Limpieza">Limpieza</option>
+                <option value="Almacen">Almacen</option>
+                <option value="Mascotas">Mascotas</option>
+            </select>
+
+            <button type="submit">Agregar</button>
+        </form>
+    </div>
+</div>
+
+
+    <!-- Modal para mostrar productos por categoría -->
+    <div id="modalProductos" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar" onclick="cerrarModalProductos()">&times;</span>
+            <h2 id="tituloProductos"></h2>
+            <ul id="listaProductos"></ul>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar la lista completa -->
+    <div id="modalListaCompleta" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar" onclick="cerrarModalListaCompleta()">&times;</span>
+            <h2>Lista Completa</h2>
+            <div id="contenidoListaCompleta"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
