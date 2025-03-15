@@ -74,6 +74,8 @@ document.getElementById('formularioProducto').addEventListener('submit', functio
     document.getElementById('formularioProducto').reset();
 });
 
+// script.js
+
 // Función para mostrar productos por categoría
 function mostrarProductos(categoria) {
     document.getElementById('tituloProductos').textContent = `Productos de ${categoria}`;
@@ -89,9 +91,35 @@ function mostrarProductos(categoria) {
                    placeholder="Precio" 
                    onchange="actualizarPrecio('${categoria}', ${index})" 
                    ${producto.comprado ? '' : 'disabled'}>
+            <button onclick="confirmarPrecio('${categoria}', ${index})">Confirmar</button>
+            <button class="eliminar" onclick="eliminarProducto('${categoria}', ${index})">X</button>
         </li>
     `).join('');
     document.getElementById('modalProductos').style.display = 'flex';
+}
+
+// Función para eliminar un producto de la lista
+function eliminarProducto(categoria, index) {
+    const producto = productos[categoria][index];
+
+    // Si el producto tenía un precio confirmado, restarlo del total acumulado
+    if (producto.comprado && producto.precio > 0) {
+        totalAcumulado -= producto.precio;
+        actualizarTotalAcumulado();
+    }
+
+    // Eliminar el producto de la lista
+    productos[categoria].splice(index, 1);
+
+    // Actualizar la cantidad en el span correspondiente
+    const spanCantidad = document.getElementById(`cantidad${categoria}`);
+    spanCantidad.textContent = productos[categoria].length;
+
+    // Guardar los datos en el localStorage
+    guardarDatos();
+
+    // Volver a mostrar la lista de productos actualizada
+    mostrarProductos(categoria);
 }
 
 // Función para marcar un producto como comprado
@@ -108,6 +136,32 @@ function actualizarPrecio(categoria, index) {
     const precioInput = document.getElementById(`precio-${categoria}-${index}`);
     productos[categoria][index].precio = parseFloat(precioInput.value);
     guardarDatos();
+}
+
+// Función para confirmar el precio y sumarlo al total general
+function confirmarPrecio(categoria, index) {
+    const precioInput = document.getElementById(`precio-${categoria}-${index}`);
+    const precio = parseFloat(precioInput.value);
+
+    if (isNaN(precio) || precio <= 0) {
+        alert('Por favor, ingrese un precio válido.');
+        return;
+    }
+
+    // Sumar el precio al total acumulado
+    totalAcumulado += precio*cantidad;
+    actualizarTotalAcumulado();
+
+    // Guardar los datos en el localStorage
+    guardarDatos();
+
+    // Cerrar el modal
+    cerrarModalProductos();
+}
+
+// Función para cerrar el modal de productos por categoría
+function cerrarModalProductos() {
+    document.getElementById('modalProductos').style.display = 'none';
 }
 
 // Función para limpiar la lista (solo se ejecuta al presionar "Limpiar Lista")

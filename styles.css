@@ -297,3 +297,19 @@ h2, h3 {
 .producto-item input[type="checkbox"]:checked ~ input[type="number"] {
     display: inline-block; /* Mostrar cuando el checkbox está seleccionado */
 }
+/* Estilos para el botón de eliminar */
+.eliminar {
+    background-color: #f44336; /* Rojo */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.eliminar:hover {
+    background-color: #e53935; /* Rojo más oscuro al pasar el mouse */
+}
