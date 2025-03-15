@@ -52,26 +52,19 @@ document.getElementById('formularioProducto').addEventListener('submit', functio
 
     const nombreProducto = document.getElementById('nombreProducto').value;
     const cantidadProducto = parseInt(document.getElementById('cantidadProducto').value);
-    const precioProducto = parseFloat(document.getElementById('precioProducto').value);
     const categoriaProducto = document.getElementById('categoriaProducto').value;
-
-    // Calcular el subtotal del producto
-    const subtotal = cantidadProducto * precioProducto;
 
     // Agregar el producto a la categoría correspondiente
     productos[categoriaProducto].push({ 
         nombre: nombreProducto, 
-        cantidad: cantidadProducto, 
-        precio: precioProducto 
+        cantidad: cantidadProducto,
+        precio: 0, // Precio inicial
+        comprado: false // Estado inicial del checkbox
     });
 
     // Actualizar la cantidad en el span correspondiente
     const spanCantidad = document.getElementById(`cantidad${categoriaProducto}`);
     spanCantidad.textContent = parseInt(spanCantidad.textContent) + cantidadProducto;
-
-    // Actualizar el total acumulado
-    totalAcumulado += subtotal;
-    actualizarTotalAcumulado();
 
     // Guardar los datos en el localStorage
     guardarDatos();
@@ -80,6 +73,42 @@ document.getElementById('formularioProducto').addEventListener('submit', functio
     cerrarModalAgregar();
     document.getElementById('formularioProducto').reset();
 });
+
+// Función para mostrar productos por categoría
+function mostrarProductos(categoria) {
+    document.getElementById('tituloProductos').textContent = `Productos de ${categoria}`;
+    const listaProductos = document.getElementById('listaProductos');
+    listaProductos.innerHTML = productos[categoria].map((producto, index) => `
+        <li class="producto-item">
+            <input type="checkbox" id="check-${categoria}-${index}" 
+                   onchange="marcarProducto('${categoria}', ${index})" 
+                   ${producto.comprado ? 'checked' : ''}>
+            <label for="check-${categoria}-${index}">${producto.nombre} - Cantidad: ${producto.cantidad}</label>
+            <input type="number" id="precio-${categoria}-${index}" 
+                   step="0.01" min="0" 
+                   placeholder="Precio" 
+                   onchange="actualizarPrecio('${categoria}', ${index})" 
+                   ${producto.comprado ? '' : 'disabled'}>
+        </li>
+    `).join('');
+    document.getElementById('modalProductos').style.display = 'flex';
+}
+
+// Función para marcar un producto como comprado
+function marcarProducto(categoria, index) {
+    const checkbox = document.getElementById(`check-${categoria}-${index}`);
+    const precioInput = document.getElementById(`precio-${categoria}-${index}`);
+    productos[categoria][index].comprado = checkbox.checked;
+    precioInput.disabled = !checkbox.checked;
+    guardarDatos();
+}
+
+// Función para actualizar el precio de un producto
+function actualizarPrecio(categoria, index) {
+    const precioInput = document.getElementById(`precio-${categoria}-${index}`);
+    productos[categoria][index].precio = parseFloat(precioInput.value);
+    guardarDatos();
+}
 
 // Función para limpiar la lista (solo se ejecuta al presionar "Limpiar Lista")
 function limpiarLista() {
@@ -97,98 +126,4 @@ function limpiarLista() {
     localStorage.removeItem('totalAcumulado');
 
     alert('Lista limpiada correctamente.');
-}
-
-// Función para mostrar productos por categoría
-function mostrarProductos(categoria) {
-    document.getElementById('tituloProductos').textContent = `Productos de ${categoria}`;
-    const listaProductos = document.getElementById('listaProductos');
-    listaProductos.innerHTML = productos[categoria].map(producto => 
-        `<li>${producto.nombre} - Cantidad: ${producto.cantidad} - Precio: ${formatearNumero(producto.precio)}</li>`
-    ).join('');
-    document.getElementById('modalProductos').style.display = 'flex';
-}
-
-// Función para cerrar el modal de productos por categoría
-function cerrarModalProductos() {
-    document.getElementById('modalProductos').style.display = 'none';
-}
-
-// Función para mostrar la lista completa
-function mostrarListaCompleta() {
-    const contenidoListaCompleta = document.getElementById('contenidoListaCompleta');
-    contenidoListaCompleta.innerHTML = Object.keys(productos).map(categoria => 
-        `<div class="categoria-lista">
-            <h3>${categoria}</h3>
-            <ul>${productos[categoria].map(producto => 
-                `<li>${producto.nombre} - Cantidad: ${producto.cantidad} - Precio: ${formatearNumero(producto.precio)}</li>`
-            ).join('')}</ul>
-        </div>`
-    ).join('');
-    document.getElementById('modalListaCompleta').style.display = 'flex';
-}
-
-// Función para cerrar el modal al hacer clic fuera
-function configurarCierreModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.addEventListener('click', function (event) {
-        // Si el clic ocurrió fuera del contenido del modal, cerrar el modal
-        if (event.target === modal) {
-            cerrarModal(modalId);
-        }
-    });
-}
-
-// Función para cerrar un modal específico
-function cerrarModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
-}
-
-// Configurar el cierre para todos los modales
-configurarCierreModal('modalAgregar');
-configurarCierreModal('modalProductos');
-configurarCierreModal('modalListaCompleta');
-
-// Función para abrir el modal de agregar producto
-function abrirModalAgregar() {
-    document.getElementById('modalAgregar').style.display = 'flex';
-}
-
-// Función para cerrar el modal de agregar producto
-function cerrarModalAgregar() {
-    cerrarModal('modalAgregar');
-}
-
-// Función para abrir el modal de productos por categoría
-function abrirModalProductos(categoria) {
-    document.getElementById('tituloProductos').textContent = `Productos de ${categoria}`;
-    const listaProductos = document.getElementById('listaProductos');
-    listaProductos.innerHTML = productos[categoria].map(producto => 
-        `<li>${producto.nombre} - Cantidad: ${producto.cantidad} - Precio: ${formatearNumero(producto.precio)}</li>`
-    ).join('');
-    document.getElementById('modalProductos').style.display = 'flex';
-}
-
-// Función para cerrar el modal de productos por categoría
-function cerrarModalProductos() {
-    cerrarModal('modalProductos');
-}
-
-// Función para abrir el modal de la lista completa
-function abrirModalListaCompleta() {
-    const contenidoListaCompleta = document.getElementById('contenidoListaCompleta');
-    contenidoListaCompleta.innerHTML = Object.keys(productos).map(categoria => 
-        `<div class="categoria-lista">
-            <h3>${categoria}</h3>
-            <ul>${productos[categoria].map(producto => 
-                `<li>${producto.nombre} - Cantidad: ${producto.cantidad} - Precio: ${formatearNumero(producto.precio)}</li>`
-            ).join('')}</ul>
-        </div>`
-    ).join('');
-    document.getElementById('modalListaCompleta').style.display = 'flex';
-}
-
-// Función para cerrar el modal de la lista completa
-function cerrarModalListaCompleta() {
-    cerrarModal('modalListaCompleta');
 }

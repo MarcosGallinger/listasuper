@@ -267,3 +267,33 @@ h2, h3 {
     font-family: 'Playfair Display', serif; /* Nueva fuente */
     font-weight: 700; /* Negrita */
 }
+
+/* Estilos para el checkbox y el campo de precio */
+.producto-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.producto-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.producto-item input[type="checkbox"]:checked {
+    accent-color: #4CAF50; /* Verde cuando está seleccionado */
+}
+
+.producto-item input[type="number"] {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 80px;
+    display: none; /* Oculto por defecto */
+}
+
+.producto-item input[type="checkbox"]:checked ~ input[type="number"] {
+    display: inline-block; /* Mostrar cuando el checkbox está seleccionado */
+}
