@@ -103,14 +103,17 @@ div {
 }
 
 .cantidad {
-    display: flex;
-    cursor: pointer;
-    color: #ff0202;
-    padding: 0px 80px;
-    justify-content: center;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #4CAF50; /* Fondo verde */
+    color: white; /* Texto blanco */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 18px; /* Tamaño de la fuente */
+    font-weight: bold; /* Texto en negrita */
     text-align: center;
-    font-size: 18px;
-    font-weight: bold;
+    min-width: 40px; /* Ancho mínimo para que no se vea demasiado pequeño */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+    margin: 0 5px; /* Margen para separar de otros elementos */
 }
 
 .icono {
@@ -312,4 +315,25 @@ h2, h3 {
 
 .eliminar:hover {
     background-color: #e53935; /* Rojo más oscuro al pasar el mouse */
+}
+/* Estilos para los controles de cantidad */
+.cantidad-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.cantidad-control button {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cantidad-control button:hover {
+    background-color: #45a049; /* Verde más oscuro al pasar el mouse */
 }

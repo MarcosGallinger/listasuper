@@ -27,7 +27,16 @@ function actualizarTotalAcumulado() {
     document.getElementById('totalAcumulado').textContent = formatearNumero(totalAcumulado);
 }
 
-// Cargar el total acumulado al iniciar la página
+// Función para cargar las cantidades al iniciar la página
+function cargarCantidades() {
+    Object.keys(productos).forEach(categoria => {
+        const cantidad = productos[categoria].reduce((sum, p) => sum + p.cantidad, 0);
+        document.getElementById(`cantidad${categoria}`).textContent = cantidad;
+    });
+}
+
+// Cargar las cantidades y el total acumulado al iniciar la página
+cargarCantidades();
 actualizarTotalAcumulado();
 
 // Función para guardar los productos y el total acumulado en el localStorage
@@ -74,8 +83,6 @@ document.getElementById('formularioProducto').addEventListener('submit', functio
     document.getElementById('formularioProducto').reset();
 });
 
-// script.js
-
 // Función para mostrar productos por categoría
 function mostrarProductos(categoria) {
     document.getElementById('tituloProductos').textContent = `Productos de ${categoria}`;
@@ -85,7 +92,12 @@ function mostrarProductos(categoria) {
             <input type="checkbox" id="check-${categoria}-${index}" 
                    onchange="marcarProducto('${categoria}', ${index})" 
                    ${producto.comprado ? 'checked' : ''}>
-            <label for="check-${categoria}-${index}">${producto.nombre} - Cantidad: ${producto.cantidad}</label>
+            <label for="check-${categoria}-${index}">${producto.nombre}</label>
+            <div class="cantidad-control">
+                <button onclick="modificarCantidad('${categoria}', ${index}, -1)">-</button>
+                <span>${producto.cantidad}</span>
+                <button onclick="modificarCantidad('${categoria}', ${index}, 1)">+</button>
+            </div>
             <input type="number" id="precio-${categoria}-${index}" 
                    step="0.01" min="0" 
                    placeholder="Precio" 
@@ -98,22 +110,31 @@ function mostrarProductos(categoria) {
     document.getElementById('modalProductos').style.display = 'flex';
 }
 
-// Función para eliminar un producto de la lista
-function eliminarProducto(categoria, index) {
+// Función para modificar la cantidad de un producto
+function modificarCantidad(categoria, index, cambio) {
     const producto = productos[categoria][index];
+    const nuevaCantidad = producto.cantidad + cambio;
 
-    // Si el producto tenía un precio confirmado, restarlo del total acumulado
+    // Validar que la cantidad no sea menor que 1
+    if (nuevaCantidad < 1) {
+        alert('La cantidad no puede ser menor que 1.');
+        return;
+    }
+
+    // Si el producto ya tenía un precio confirmado, ajustar el total acumulado
     if (producto.comprado && producto.precio > 0) {
-        totalAcumulado -= producto.precio;
+        const subtotalAnterior = producto.precio * producto.cantidad;
+        const subtotalNuevo = producto.precio * nuevaCantidad;
+        totalAcumulado += (subtotalNuevo - subtotalAnterior);
         actualizarTotalAcumulado();
     }
 
-    // Eliminar el producto de la lista
-    productos[categoria].splice(index, 1);
+    // Actualizar la cantidad del producto
+    producto.cantidad = nuevaCantidad;
 
     // Actualizar la cantidad en el span correspondiente
     const spanCantidad = document.getElementById(`cantidad${categoria}`);
-    spanCantidad.textContent = productos[categoria].length;
+    spanCantidad.textContent = productos[categoria].reduce((sum, p) => sum + p.cantidad, 0);
 
     // Guardar los datos en el localStorage
     guardarDatos();
@@ -131,13 +152,6 @@ function marcarProducto(categoria, index) {
     guardarDatos();
 }
 
-// Función para actualizar el precio de un producto
-function actualizarPrecio(categoria, index) {
-    const precioInput = document.getElementById(`precio-${categoria}-${index}`);
-    productos[categoria][index].precio = parseFloat(precioInput.value);
-    guardarDatos();
-}
-
 // Función para confirmar el precio y sumarlo al total general
 function confirmarPrecio(categoria, index) {
     const precioInput = document.getElementById(`precio-${categoria}-${index}`);
@@ -148,8 +162,15 @@ function confirmarPrecio(categoria, index) {
         return;
     }
 
-    // Sumar el precio al total acumulado
-    totalAcumulado += precio*cantidad;
+    // Multiplicar el precio por la cantidad del producto
+    const producto = productos[categoria][index];
+    const subtotal = precio * producto.cantidad;
+
+    // Guardar el precio en el objeto del producto
+    producto.precio = precio;
+
+    // Sumar el subtotal al total acumulado
+    totalAcumulado += subtotal;
     actualizarTotalAcumulado();
 
     // Guardar los datos en el localStorage
@@ -162,6 +183,31 @@ function confirmarPrecio(categoria, index) {
 // Función para cerrar el modal de productos por categoría
 function cerrarModalProductos() {
     document.getElementById('modalProductos').style.display = 'none';
+}
+
+// Función para eliminar un producto de la lista
+function eliminarProducto(categoria, index) {
+    const producto = productos[categoria][index];
+
+    // Si el producto tenía un precio confirmado, restar el subtotal del total acumulado
+    if (producto.comprado && producto.precio > 0) {
+        const subtotal = producto.precio * producto.cantidad;
+        totalAcumulado -= subtotal;
+        actualizarTotalAcumulado();
+    }
+
+    // Eliminar el producto de la lista
+    productos[categoria].splice(index, 1);
+
+    // Actualizar la cantidad en el span correspondiente
+    const spanCantidad = document.getElementById(`cantidad${categoria}`);
+    spanCantidad.textContent = productos[categoria].reduce((sum, p) => sum + p.cantidad, 0);
+
+    // Guardar los datos en el localStorage
+    guardarDatos();
+
+    // Volver a mostrar la lista de productos actualizada
+    mostrarProductos(categoria);
 }
 
 // Función para limpiar la lista (solo se ejecuta al presionar "Limpiar Lista")
