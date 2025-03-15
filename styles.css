@@ -1,5 +1,6 @@
+/* Estilos generales */
 body {
-    background-image: url('./img/gondola.png'); /* Ruta de la imagen */
+    background-image: url('img/gondola.png'); /* Ruta de la imagen */
     background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
@@ -13,26 +14,7 @@ body {
     height: auto;
 }
 
-.contenedor {
-    display: block;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
-    padding: 40px 0px;
-    border-radius: 10px;
-    color: white; /* Color del texto */
-    width: 90%;
-    height: 80%;
-    max-width: 600px;
-    max-height: auto;
-}
-
-div {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10%;
-}
-
+/* Estilos para los botones */
 .btnAgregar, .btnLimpiar, .btnLista {
     border: none; 
     padding: 20px 28px; 
@@ -45,8 +27,6 @@ div {
     font-family: 'Playfair Display', serif; /* Nueva fuente */
     font-weight: 700; /* Negrita */
 }
-
-
 
 .btnLista {
     background-color: rgb(14, 250, 250);
@@ -78,20 +58,22 @@ div {
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
 }
 
+/* Estilos para los bloques de categorías */
 .bloque {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0px;
+    margin-bottom: 10px; /* Reducir el margen inferior */
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    font-family: "Rock Salt", cursive;
+    font-family: 'Playfair Display', serif;
     font-weight: 400;
     font-style: normal;
+    width: 100%; /* Asegurar que ocupe todo el ancho del contenedor */
 }
 
 .bloque ul {
-    width: 40%; /* Ancho de cada <ul> para que quepan dos por fila */
+    width: 45%; /* Ajustar el ancho de cada <ul> */
     padding: 5px;
     border: 2px solid #0a0a0a; /* Borde para visualizar mejor */
     list-style-type: none; /* Quita los puntos de la lista */
@@ -102,6 +84,7 @@ div {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+/* Estilos para el span de cantidad */
 .cantidad {
     display: inline-block;
     padding: 5px 10px;
@@ -114,8 +97,10 @@ div {
     min-width: 40px; /* Ancho mínimo para que no se vea demasiado pequeño */
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
     margin: 0 5px; /* Margen para separar de otros elementos */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
 }
 
+/* Estilos para los iconos */
 .icono {
     width: 24px; /* Ajusta el tamaño de los iconos */
     height: 24px;
@@ -141,8 +126,8 @@ div {
     background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
     padding: 20px;
     border-radius: 10px;
-    width: 80%;
-    max-width: 500px;
+    width: 90%; /* Ancho del modal en móviles */
+    max-width: 800px; /* Ancho máximo en pantallas grandes */
     text-align: center;
     color: white;
     border: 2px solid #4CAF50; /* Borde verde */
@@ -158,89 +143,6 @@ div {
 
 .cerrar:hover {
     color: #f44336; /* Rojo al pasar el mouse */
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-form input, form select, form button {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-family: "Rock Salt", cursive;
-}
-
-form button {
-    background-color: #4CAF50; /* Verde */
-    color: white;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #45a049;
-}
-
-#listaProductos, #contenidoListaCompleta {
-    list-style-type: none;
-    padding: 0;
-    text-align: left;
-}
-
-#listaProductos li, #contenidoListaCompleta li {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-}
-.listacompleta {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.17em;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-    unicode-bidi: isolate;
-}
-div.modal-contenido{
-    display: flex;
-    flex-direction: column;
-
-}
-div.listacompleta {
-    display: flex;
-    flex-direction: column;
-}
-/* Estilos para el modal de la lista completa */
-#contenidoListaCompleta {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.categoria-lista {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.categoria-lista h3 {
-    margin: 0;
-    font-size: 18px;
-    color: #4CAF50; /* Verde */
-}
-
-.categoria-lista ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.categoria-lista li {
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Estilos para la calculadora */
@@ -266,56 +168,6 @@ div.listacompleta {
     margin: 10px 0;
 }
 
-h2, h3 {
-    font-family: 'Playfair Display', serif; /* Nueva fuente */
-    font-weight: 700; /* Negrita */
-}
-
-/* Estilos para el checkbox y el campo de precio */
-.producto-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.producto-item input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-.producto-item input[type="checkbox"]:checked {
-    accent-color: #4CAF50; /* Verde cuando está seleccionado */
-}
-
-.producto-item input[type="number"] {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 80px;
-    display: none; /* Oculto por defecto */
-}
-
-.producto-item input[type="checkbox"]:checked ~ input[type="number"] {
-    display: inline-block; /* Mostrar cuando el checkbox está seleccionado */
-}
-/* Estilos para el botón de eliminar */
-.eliminar {
-    background-color: #f44336; /* Rojo */
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    margin-left: 10px;
-    font-weight: bold;
-}
-
-.eliminar:hover {
-    background-color: #e53935; /* Rojo más oscuro al pasar el mouse */
-}
 /* Estilos para los controles de cantidad */
 .cantidad-control {
     display: flex;
@@ -336,4 +188,68 @@ h2, h3 {
 
 .cantidad-control button:hover {
     background-color: #45a049; /* Verde más oscuro al pasar el mouse */
+}
+
+/* Estilos para el botón de eliminar */
+.eliminar {
+    background-color: #f44336; /* Rojo */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.eliminar:hover {
+    background-color: #e53935; /* Rojo más oscuro al pasar el mouse */
+}
+
+/* Estilos para el modal de la lista completa */
+#contenidoListaCompleta {
+    text-align: left;
+    width: 100%;
+}
+
+.categoria-lista {
+    margin-bottom: 20px;
+}
+
+.categoria-lista h3 {
+    color: #4CAF50; /* Verde */
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center; /* Centrar el título */
+}
+
+.categoria-lista ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en varias filas */
+    gap: 10px; /* Espacio entre los elementos */
+}
+
+.categoria-lista li {
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
+    padding: 10px;
+    border-radius: 5px;
+    flex: 1 1 calc(50% - 10px); /* Dos columnas en móviles */
+    box-sizing: border-box; /* Incluir el padding en el ancho */
+    text-align: center; /* Centrar el texto */
+}
+
+/* Estilos para pantallas más grandes (tablets y escritorio) */
+@media (min-width: 768px) {
+    .categoria-lista li {
+        flex: 1 1 calc(33.333% - 10px); /* Tres columnas en tablets */
+    }
+}
+
+@media (min-width: 1024px) {
+    .categoria-lista li {
+        flex: 1 1 calc(25% - 10px); /* Cuatro columnas en escritorio */
+    }
 }

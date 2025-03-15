@@ -82,6 +82,28 @@ document.getElementById('formularioProducto').addEventListener('submit', functio
     cerrarModalAgregar();
     document.getElementById('formularioProducto').reset();
 });
+// Función para mostrar la lista completa de productos
+function mostrarListaCompleta() {
+    const contenidoListaCompleta = document.getElementById('contenidoListaCompleta');
+    contenidoListaCompleta.innerHTML = Object.keys(productos).map(categoria => `
+        <div class="categoria-lista">
+            <h3>${categoria}</h3>
+            <ul>
+                ${productos[categoria].map(producto => `
+                    <li>
+                        ${producto.nombre} - Cantidad: ${producto.cantidad} - Precio: ${formatearNumero(producto.precio)}
+                    </li>
+                `).join('')}
+            </ul>
+        </div>
+    `).join('');
+    document.getElementById('modalListaCompleta').style.display = 'flex';
+}
+
+// Función para cerrar el modal de la lista completa
+function cerrarModalListaCompleta() {
+    document.getElementById('modalListaCompleta').style.display = 'none';
+}
 
 // Función para mostrar productos por categoría
 function mostrarProductos(categoria) {
