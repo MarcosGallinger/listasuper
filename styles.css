@@ -14,10 +14,23 @@ body {
     height: auto;
 }
 
+/* Contenedor principal */
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%; /* Ancho del contenedor en móviles */
+    max-width: 800px; /* Ancho máximo en pantallas grandes */
+    margin: 20px;
+}
+
 /* Estilos para los botones */
 .btnAgregar, .btnLimpiar, .btnLista {
     border: none; 
-    padding: 20px 28px; 
+    padding: 15px 20px; /* Padding más pequeño para móviles */
     cursor: pointer; 
     border-radius: 5px; 
     display: inline-block;
@@ -26,6 +39,7 @@ body {
     transition: background-color 0.3s, box-shadow 0.3s;
     font-family: 'Playfair Display', serif; /* Nueva fuente */
     font-weight: 700; /* Negrita */
+    width: 100%; /* Ocupar todo el ancho en móviles */
 }
 
 .btnLista {
@@ -169,11 +183,10 @@ body {
 }
 
 /* Estilos para los controles de cantidad */
-li.producto-item {
+.cantidad-control {
     display: flex;
-    flex-direction: flex start;
-    text-align: -webkit-match-parent;
-    unicode-bidi: isolate;
+    align-items: center;
+    gap: 5px;
 }
 
 .cantidad-control button {
@@ -233,11 +246,27 @@ li.producto-item {
     gap: 10px; /* Espacio entre los elementos */
 }
 
+.categoria-lista li {
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
+    padding: 10px;
+    border-radius: 5px;
+    flex: 1 1 calc(50% - 10px); /* Dos columnas en móviles */
+    box-sizing: border-box; /* Incluir el padding en el ancho */
+    text-align: center; /* Centrar el texto */
+}
 
 /* Estilos para pantallas más grandes (tablets y escritorio) */
 @media (min-width: 768px) {
     .categoria-lista li {
         flex: 1 1 calc(33.333% - 10px); /* Tres columnas en tablets */
+    }
+
+    .modal-contenido {
+        width: 70%; /* Ancho del modal en tablets */
+    }
+
+    .btnAgregar, .btnLimpiar, .btnLista {
+        width: auto; /* Ancho automático en pantallas grandes */
     }
 }
 
@@ -245,10 +274,8 @@ li.producto-item {
     .categoria-lista li {
         flex: 1 1 calc(25% - 10px); /* Cuatro columnas en escritorio */
     }
-}
 
-@media (min-width: 480px) {
-    .categoria-lista li {
-        flex: 1 1 calc(50% - 10px); /* Dos columnas */
+    .modal-contenido {
+        width: 50%; /* Ancho del modal en escritorio */
     }
 }
