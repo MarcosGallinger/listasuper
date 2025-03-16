@@ -113,7 +113,10 @@ body {
     margin: 0 5px; /* Margen para separar de otros elementos */
     cursor: pointer; /* Cambia el cursor al pasar el mouse */
 }
-
+li.producto-item{
+    display: flex;
+    flex-direction: row;
+}
 /* Estilos para los iconos */
 .icono {
     width: 24px; /* Ajusta el tamaño de los iconos */

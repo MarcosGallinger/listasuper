@@ -111,14 +111,16 @@ function mostrarProductos(categoria) {
     const listaProductos = document.getElementById('listaProductos');
     listaProductos.innerHTML = productos[categoria].map((producto, index) => `
         <li class="producto-item">
+            <div class="cantidad-control">
             <input type="checkbox" id="check-${categoria}-${index}" 
                    onchange="marcarProducto('${categoria}', ${index})" 
                    ${producto.comprado ? 'checked' : ''}>
             <label for="check-${categoria}-${index}">${producto.nombre}</label>
-            <div class="cantidad-control">
                 <button onclick="modificarCantidad('${categoria}', ${index}, -1)">-</button>
                 <span>${producto.cantidad}</span>
                 <button onclick="modificarCantidad('${categoria}', ${index}, 1)">+</button>
+            
+                
             </div>
             <input type="number" id="precio-${categoria}-${index}" 
                    step="0.01" min="0" 
@@ -249,3 +251,6 @@ function limpiarLista() {
 
     alert('Lista limpiada correctamente.');
 }
+document.querySelector('.cantidad').addEventListener('click', function() {
+    this.parentElement.classList.toggle('open');
+  });
